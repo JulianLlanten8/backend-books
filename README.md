@@ -50,3 +50,23 @@
 
 > [!NOTE]
 > **Sobre averageRating** Si un libro no tiene reseñas, averageRating será null. Esta elección permite diferenciar entre “libro sin reseñas” (null) y un libro con reseñas que suman cero (0). El frontend puede mostrar un mensaje como “Sin reseñas aún” cuando averageRating sea null.
+
+### Endpoints
+- **GET /api/books**: Obtiene una lista de todos los libros con su averageRating.
+- **POST /api/books**: Crea un nuevo libro.
+
+### Respuestas esperadas ante errores de validación
+
+Al intentar crear una reseña vía `POST /api/reviews`, si los datos no cumplen las validaciones, la API devuelve un **HTTP 400 Bad Request** con un JSON que describe los errores. Ejemplos:
+
+```json
+{
+  "errors": {
+    "rating": [
+      "El campo rating es requerido",
+      "El campo rating debe estar entre 1 y 5"
+    ],
+    "comment": ["El campo comment no puede estar vacío"],
+    "book": ["El libro indicado no existe"]
+  }
+}
