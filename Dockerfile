@@ -5,13 +5,13 @@ WORKDIR /app
 # Instalar Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copiamos composer.json y composer.lock primero para cache
+# Copiar composer.json y composer.lock para cache
 COPY composer.json composer.lock ./
 
-# Instalamos dependencias COMPLETAS (incluye symfony/runtime)
-RUN composer install --no-interaction --prefer-dist
+# Instalar dependencias SIN ejecutar scripts
+RUN composer install --no-interaction --prefer-dist --no-scripts
 
-# Copiamos el resto del código
+# Copiar el resto del código
 COPY . .
 
 # Variables de entorno para la DB (configurar en Render)
