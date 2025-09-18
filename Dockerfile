@@ -8,8 +8,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Copiar composer.json y composer.lock para cache
 COPY composer.json composer.lock ./
 
-# Instalar dependencias SIN ejecutar scripts
-RUN composer install --no-interaction --prefer-dist --no-scripts
+# Instalamos dependencias sin scripts, pero agregamos symfony/runtime explícitamente
+RUN composer require symfony/runtime --no-interaction \
+    && composer install --no-interaction --prefer-dist --no-scripts
 
 # Copiar el resto del código
 COPY . .
