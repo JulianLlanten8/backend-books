@@ -1,0 +1,76 @@
+{
+	"info": {
+		"_postman_id": "f0e9d3a6-c1cf-475d-982b-2be87fdc4905",
+		"name": "books",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20592746",
+		"_collection_link": "https://julian-llanten.postman.co/workspace/Personal~786f3564-5341-4d92-b9b5-62b2617373bc/collection/20592746-f0e9d3a6-c1cf-475d-982b-2be87fdc4905?action=share&source=collection_link&creator=20592746"
+	},
+	"item": [
+		{
+			"name": "lista de libros",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/books/",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"books",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear un libro",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"book_id\": 1,\n  \"rating\": 5,\n  \"comment\": \"Excelente libro\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/reviews",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
