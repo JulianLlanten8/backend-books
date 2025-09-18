@@ -14,8 +14,7 @@ RUN curl -sS https://get.symfony.com/cli/installer | bash \
     && mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
 
 # Instalamos dependencias sin scripts de Symfony Flex
-RUN composer install --no-interaction --prefer-dist --no-scripts
-
+RUN composer install --no-interaction --prefer-dist
 # Copiamos el resto del código
 COPY . .
 
