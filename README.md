@@ -46,7 +46,5 @@
    ```
 9. Accede a la aplicación en tu navegador web en `http://localhost:8000/api/books` o mira la colección de Postman aqui: [text](docs/books.postman_collection.json)
 
-> [!NOTE] **Sobre averageRating**
-> Si un libro no tiene reseñas, averageRating será null.
-> Esta elección permite diferenciar entre “libro sin reseñas” (null) y un libro con reseñas que suman cero (0).
-> El frontend puede mostrar un mensaje como “Sin reseñas aún” cuando averageRating sea null.
+> [!NOTE]
+> **Sobre averageRating** Si un libro no tiene reseñas, averageRating será null. Esta elección permite diferenciar entre “libro sin reseñas” (null) y un libro con reseñas que suman cero (0). El frontend puede mostrar un mensaje como “Sin reseñas aún” cuando averageRating sea null.
