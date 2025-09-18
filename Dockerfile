@@ -5,19 +5,17 @@ WORKDIR /app
 # Instalar Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copiar composer.json y composer.lock para cache
+# Copiar composer.json y composer.lock primero para cache
 COPY composer.json composer.lock ./
 
-# Instalamos dependencias sin scripts, pero agregamos symfony/runtime explícitamente
-RUN composer require symfony/runtime --no-interaction \
-    && composer install --no-interaction --prefer-dist --no-scripts
+# Instalar dependencias SIN ejecutar scripts (symfony-cmd no se ejecuta)
+RUN composer install --no-interaction --prefer-dist --no-scripts
 
 # Copiar el resto del código
 COPY . .
 
 # Variables de entorno para la DB (configurar en Render)
-ENV DATABASE_URL="postgresql://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-!ChangeMe!}@${DATABASE_HOST:-database}:5432/${POSTGRES_DB:-app}?serverVersion=16&charset=utf8"
-
+ENV DATABASE_URL="${DATABASE_URL}"
 # Exponer puerto 8000
 EXPOSE 8000
 
