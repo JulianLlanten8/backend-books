@@ -1,5 +1,7 @@
 # Proyecto: Tidelit Libros (Symfony 6 + Vue 3)
-![alt text](docs/preview.png)
+![vista previa](docs/preview.png)
+### Este proyecto es una API RESTful desarrollada con Symfony 6 que gestiona una colección de libros y sus reseñas. La API permite realizar operaciones CRUD (Crear, Leer) en libros y reseñas.
+![vista de datos](docs/data.png)
 
 ### Requisitos
 
