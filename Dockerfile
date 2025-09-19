@@ -2,6 +2,9 @@ FROM webdevops/php:8.2-alpine
 
 WORKDIR /app
 
+# Instalar dependencias necesarias y la extensión pdo_pgsql
+RUN apk add --no-cache postgresql-dev && \
+    docker-php-ext-install pdo pdo_pgsql
 # Instalar Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
