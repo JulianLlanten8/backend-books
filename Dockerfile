@@ -4,35 +4,36 @@ WORKDIR /app
 
 # Instalar Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
-# Copiar composer.json y composer.lock primero para cache
+# Copiar archivos de configuración de Composer
 COPY composer.json composer.lock ./
 
-# Instalar dependencias SIN ejecutar scripts
-RUN composer install --no-interaction --prefer-dist --no-scripts --no-dev
+# Instalar todas las dependencias primero (con dev para tener symfony/runtime)
+RUN composer install --no-interaction --prefer-dist --no-scripts
 
-# Asegurar que symfony/runtime está instalado
-RUN composer require symfony/runtime --no-scripts
-
-# Copiar el resto del código
+# Copiar todo el código
 COPY . .
 
-# Ejecutar scripts de composer después de copiar todo el código
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+# Limpiar cache y preparar para producción
+RUN php bin/console cache:clear --env=prod --no-debug || true
 
-# Configurar permisos para var/
+# Remover dependencias de desarrollo para la imagen final
+RUN composer install --no-interaction --prefer-dist --no-scripts --no-dev --optimize-autoloader
+
+# Crear directorios necesarios y establecer permisos
 RUN mkdir -p var/cache var/log && \
     chown -R application:application var/ && \
     chmod -R 775 var/
 
-# Variables de entorno para la DB (configurar en Render)
+# Variables de entorno
 ENV APP_ENV=prod
 ENV DATABASE_URL="${DATABASE_URL}"
 
-# Exponer puerto 8000
+# Exponer puerto
 EXPOSE 8000
 
-# Comando por defecto: migraciones, fixtures y levantar servidor PHP embebido
+# Comando de inicio
 CMD sh -c "\
     php bin/console cache:clear --env=prod && \
     php bin/console doctrine:database:create --if-not-exists && \
