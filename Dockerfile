@@ -49,5 +49,6 @@ CMD sh -c "\
     php bin/console cache:clear --env=\${APP_ENV} --no-debug && \
     php bin/console doctrine:database:create --if-not-exists --env=\${APP_ENV} && \
     php bin/console doctrine:migrations:migrate --no-interaction --env=\${APP_ENV} && \
-    php -S 0.0.0.0:${PORT:-8000} -t public \
+    php bin/console doctrine:fixtures:load --no-interaction --append --env=\${APP_ENV} && \
+    php -S 0.0.0.0:\${PORT:-8000} -t public \
 "
